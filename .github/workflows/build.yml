@@ -8,29 +8,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - id: checkout
-        name: Checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - id: setup-python
-        name: Setup Python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - id: install-flet
-        name: Install Flet CLI
+      - name: Install Flet and Dependencies
         run: |
           pip install flet
 
-      - id: build-apk
-        name: Build Android App
+      - name: Build Android App
         run: |
           flet build apk main.py --name "ChiliTayBuilder"
 
-      - id: upload-apk
-        name: Upload APK Artifact
-        uses: actions/images/upload-artifact@v4
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
         with:
           name: ChiliTayBuilder-APK
           path: build/apk/*.apk
